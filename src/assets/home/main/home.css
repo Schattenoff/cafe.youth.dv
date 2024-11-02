@@ -1,0 +1,31 @@
+.home__sections {
+    padding: 10px;
+}
+
+.home__dishes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.home__sectionTitle {
+    font: 700 19px / 19px "Montserrat", sans-serif;
+    padding: 20px 20px 15px 9px;
+}
+
+.home__total {
+    background: #31BC6B;
+    height: 50px;
+    margin: 0 10px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    font: 800 19px / 19px "Montserrat", sans-serif;
+    color: #fff;
+    position: sticky;
+    bottom: 20px;
+}
+

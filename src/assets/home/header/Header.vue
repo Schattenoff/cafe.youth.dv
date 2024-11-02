@@ -1,13 +1,23 @@
 <script>
 export default {
-    name: "Header"
+    name: "Header",
+
+    emits: ['refresh'],
+
+    methods: {
+        handleRefresh() {
+            this.$emit('refresh');
+        }
+    }
 }
 </script>
 
 <template>
-    <h2>Header</h2>
+    <header class="header">
+        <div @click="handleRefresh()">ref</div>
+        <div>Cafe Youth DV</div>
+        <div>search</div>
+    </header>
 </template>
 
-<style scoped>
-
-</style>
+<style src="./header.css" scoped />

@@ -1,5 +1,9 @@
 .dish {
     position: relative;
+    display: inline-block;
+    border-radius: 8px;
+    overflow: hidden;
+    width: calc(50% - 5px);
 }
 
 .dish__photoWrap {
@@ -14,11 +18,16 @@
 }
 
 .dish__name {
-    font: 400 16px / 18px "Roboto", sans-serif;
+    font: 500 16px / 18px "Montserrat", sans-serif;
     color: currentColor;
     display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.dish__amount {
+    font: 600 16px / 18px "Montserrat", sans-serif;
+    margin: 13px 0;
 }
 
 .dish__content {
@@ -28,4 +37,32 @@
     flex-direction: column;
     background: #fff;
     color: #000;
+}
+
+.dish__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dish__action {
+    width: 32px;
+    height: 32px;
+    background: #31BC6B;
+    color: #fff;
+    position: relative;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
+
+.dish__count {
+    width: 80px;
+    height: 32px;
+    padding-left: 35px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    font: 600 16px / 18px "Montserrat", sans-serif;
 }

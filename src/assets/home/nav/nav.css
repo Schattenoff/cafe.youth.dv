@@ -1,0 +1,23 @@
+.nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    position: relative;
+    padding: 7px 10px 7px 10px;
+    background: #fff;
+}
+
+.nav__item {
+    flex-shrink: 0;
+    flex-grow: 0;
+    cursor: pointer;
+    font: 500 16px / 32px "Montserrat", sans-serif;
+    padding: 0 9px;
+    border-radius: 4px;
+    color: currentColor;
+}
+
+.nav__item--active {
+    background: #ebebeb;
+}
