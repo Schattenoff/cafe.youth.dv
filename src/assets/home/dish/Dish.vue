@@ -33,12 +33,10 @@ export default {
             <div class="dish__name">{{ dish.name }}</div>
             <div class="dish__amount">{{ totalAmount.toFixed(2) }} BYN</div>
             <div class="dish__actions">
-                <div class="dish__action" @click="handleMinus">
-                    <span>-</span>
+                <div class="dish__action dish__actionMinus" @click="handleMinus">
                 </div>
                 <input class="dish__count" v-model="dish.count" />
-                <div class="dish__action" @click="handlePlus">
-                    <span>+</span>
+                <div class="dish__action dish__actionPlus" @click="handlePlus">
                 </div>
             </div>
         </div>

@@ -14,9 +14,11 @@ export default {
 
 <template>
     <header class="header">
-        <div @click="handleRefresh()">ref</div>
+        <div class="header__refresh" @click="handleRefresh()">refresh</div>
         <div>Cafe Youth DV</div>
-        <div>search</div>
+        <div class="header__search">
+            search
+        </div>
     </header>
 </template>
 
