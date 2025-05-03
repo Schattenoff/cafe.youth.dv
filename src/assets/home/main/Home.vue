@@ -2,92 +2,79 @@
 import Header from "@/assets/home/header/Header.vue";
 import Nav from "@/assets/home/nav/Nav.vue";
 import Dish from "@/assets/home/dish/Dish.vue";
+import Cart from "@/assets/home/cart/main/Cart.vue";
+import {apiRequest} from "@/assets/common/apiRequest/apiRequest.js";
+
 export default {
     name: "Home",
 
     components: {
         Header,
         Nav,
-        Dish
+        Dish,
+        Cart
     },
 
     data() {
         return {
-            sections: [
-                {
-                    id: 1,
-                    name: 'Горячее',
-                    dishes: [
-                        {
-                            id: 1,
-                            name: 'Бутерброд',
-                            preview: 'https://steamuserimages-a.akamaihd.net/ugc/1630856622137054636/EFA39C29D68B2B9040DE340F62DA3DC3F2946A4A/',
-                            amount: 0.50,
-                            count: 0
-                        },
-                        {
-                            id: 2,
-                            name: 'Тост',
-                            preview: 'https://i.pinimg.com/736x/d4/ca/cb/d4cacb8c6f85aa84d22d9db30e0d5f10.jpg',
-                            amount: 1.50,
-                            count: 0
-                        }
-                    ]
-                },
-                {
-                    id: 2,
-                    name: 'Напитки',
-                    dishes: [
-                        {
-                            id: 1,
-                            name: 'Pepsi 0,5L',
-                            preview: 'https://kamensk-vodovoz.ru/upload/iblock/9e4/v1b1xrgrctjb3icejtr2ftcg3w2zjnb4/c547558f_7e26_11ee_a1cf_10604b806b5a_c5475590_7e26_11ee_a1cf_10604b806b5a.jpg',
-                            amount: 2.20,
-                            count: 0
-                        },
-                        {
-                            id: 2,
-                            name: 'Pepsi 0,5L',
-                            preview: 'https://kamensk-vodovoz.ru/upload/iblock/9e4/v1b1xrgrctjb3icejtr2ftcg3w2zjnb4/c547558f_7e26_11ee_a1cf_10604b806b5a_c5475590_7e26_11ee_a1cf_10604b806b5a.jpg',
-                            amount: 2.20,
-                            count: 0
-                        },
-                        {
-                            id: 3,
-                            name: 'Pepsi 0,5L',
-                            preview: 'https://kamensk-vodovoz.ru/upload/iblock/9e4/v1b1xrgrctjb3icejtr2ftcg3w2zjnb4/c547558f_7e26_11ee_a1cf_10604b806b5a_c5475590_7e26_11ee_a1cf_10604b806b5a.jpg',
-                            amount: 2.20,
-                            count: 0
-                        },
-                        {
-                            id: 4,
-                            name: 'Pepsi 0,5L',
-                            preview: 'https://kamensk-vodovoz.ru/upload/iblock/9e4/v1b1xrgrctjb3icejtr2ftcg3w2zjnb4/c547558f_7e26_11ee_a1cf_10604b806b5a_c5475590_7e26_11ee_a1cf_10604b806b5a.jpg',
-                            amount: 2.20,
-                            count: 0
-                        },
-                    ]
-                },
-            ]
+            isReady: false,
+            isOpenCart: false,
+            sections: null,
+            activeSectionId: null,
+            observer: null,
         }
     },
 
     computed: {
+        visibleSections() {
+            if(!this.sections) return [];
+
+            return this.sections.filter(section => section.dishes.length);
+        },
+
         navs() {
-            return this.sections.map(section => ({
+            return this.visibleSections.map(section => ({
                 id: section.id,
                 name: section.name
             }));
         },
+
         totalAmount() {
-            return this.sections.map(section => (section.dishes)).flat().reduce((acc, dish ) => {
-                acc += dish.amount * dish.count;
+            return this.visibleSections.map(section => (section.dishes)).flat().reduce((acc, dish ) => {
+                acc += dish.price * dish.count;
                 return acc;
             }, 0).toFixed(2);
         }
     },
 
+    mounted() {
+        this.getSections();
+    },
+
+    unmounted() {
+        if (this.observer) this.observer.disconnect();
+    },
+
     methods: {
+        getSections() {
+            const payload = {};
+
+            apiRequest('get', '/section', payload, (res) => {
+                if (res.error) {
+                    return;
+                }
+                this.sections = res;
+                this.activeSectionId = this.sections[0].id;
+                this.refresh();
+                this.isReady = true;
+
+                setTimeout(() => {
+                    this.observerSections();
+                }, 100);
+            });
+
+        },
+
         refresh() {
             this.sections = this.sections.map(section => {
                 return {
@@ -100,19 +87,49 @@ export default {
                     })
                 }
             })
+        },
+
+        openCart() {
+            this.isOpenCart = true;
+        },
+
+        closeCart() {
+            this.isOpenCart = false;
+        },
+
+        observerSections() {
+            const options = {
+                root: null,
+                rootMargin: '0px 2px 0px 0px',
+                threshold: 1
+            };
+
+            this.observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        this.activeSectionId = Number(entry.target.id);
+                    }
+                });
+            }, options);
+
+            // Начинаем наблюдение за всеми секциями
+            this.$refs.sectionRefs.forEach((section) => {
+                this.observer.observe(section);
+            });
         }
     }
 }
 </script>
 
 <template>
-    <div class="home">
+    <div v-if="isReady" class="home">
         <Header @refresh="refresh()" />
-        <Nav :navs="navs" />
+        <Nav :navs="navs" :activeSectionId="activeSectionId" />
         <div class="home__sections">
-            <div v-for="section in sections"
+            <div v-for="section in visibleSections"
                  :id="section.id"
                  :key="section.id"
+                 ref="sectionRefs"
                  class="home__section">
                 <h2 class="home__sectionTitle">{{section.name}}</h2>
                 <div class="home__dishes">
@@ -122,10 +139,11 @@ export default {
                 </div>
             </div>
         </div>
-        <div class="home__total">
-            <div>Итого: </div>
+        <div v-if="Math.round(totalAmount)" class="home__total" @click="openCart()">
+            <div>Мой заказ: </div>
             <div>{{ totalAmount }} BYN</div>
         </div>
+        <Cart v-if="isOpenCart" :sections="visibleSections" @close="closeCart" />
     </div>
 </template>
 

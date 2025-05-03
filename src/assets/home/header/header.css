@@ -1,4 +1,7 @@
 .header {
+    position: sticky;
+    top: 0;
+    z-index: 11;
     height: 50px;
     background: #fff;
     color: #000;
@@ -8,10 +11,12 @@
     padding: 0 10px;
 }
 
-/*.header__refresh {*/
-/*    background: url(i/refresh.svg) no-repeat;*/
-/*}*/
+.header__refresh {
+    width: 24px;
+    height: 24px;
+    background: url(i/refresh.svg) 50%/100% no-repeat;
+}
 
-/*.header__search {*/
-/*    background: url(i/search.svg) no-repeat;*/
-/*}*/
+.header__search {
+    width: 24px;
+}

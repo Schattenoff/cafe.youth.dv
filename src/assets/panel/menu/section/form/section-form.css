@@ -1,0 +1,89 @@
+.sectionForm__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.sectionForm {
+    background: #fff;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sectionForm__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.sectionForm__header h3 {
+    margin: 0;
+    font-size: 25px;
+}
+
+.sectionForm__header button {
+    background: none;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.sectionForm__body {
+    padding: 16px;
+}
+
+.sectionForm__field {
+    width: 100%;
+}
+
+.sectionForm__caption {
+    font: 500 16px / 18px "Montserrat", sans-serif;
+    margin: 0 0 10px 5px;
+}
+
+.sectionForm__input {
+    position: relative;
+    border: 1px solid #d5d5d5;
+    text-align: left;
+    border-radius: 8px;
+    font: 700 20px / 24px "Montserrat", sans-serif;
+    height: 50px;
+    width: 100%;
+    padding: 2px 16px 0 16px;
+}
+
+.sectionForm__footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+}
+
+.sectionForm__submit {
+    background: #2DC36A;
+    border: 0;
+    color: #fff;
+    font: 600 19px / 52px "Montserrat", sans-serif;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+    transition: background 150ms, transform 200ms;
+    text-align: center;
+}
+
+.sectionForm__submit:active {
+    transform: scale(0.95);
+}

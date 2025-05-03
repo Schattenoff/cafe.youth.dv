@@ -1,0 +1,54 @@
+.auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100dvh;
+}
+
+.auth__form {
+    width: 100%;
+    border: 1px solid #616161;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 0 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.auth__field {
+    width: 100%;
+}
+
+.auth__caption {
+    font: 500 16px / 18px "Montserrat", sans-serif;
+    margin: 0 0 3px 5px;
+}
+
+.auth__input {
+    position: relative;
+    border: 1px solid #d5d5d5;
+    text-align: left;
+    border-radius: 8px;
+    font: 700 20px / 24px "Montserrat", sans-serif;
+    height: 50px;
+    width: 100%;
+    padding: 2px 16px 0 16px;
+}
+
+.auth__btn {
+    background: #2DC36A;
+    border: 0;
+    color: #fff;
+    font: 600 19px / 52px "Montserrat", sans-serif;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+    transition: background 150ms, transform 200ms;
+}
+
+.auth__btn:active {
+    transform: scale(0.95);
+}

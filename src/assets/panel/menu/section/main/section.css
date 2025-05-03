@@ -1,0 +1,52 @@
+.section {
+    margin: 0 0 20px 0;
+}
+
+.section__title {
+    position: relative;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #d5d5d5;
+    font: 600 18px / 20px "Montserrat", sans-serif;
+    margin: 0 0 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.section__add {
+    padding: 10px;
+    border-radius: 8px;
+    background: #2DC36A;
+    color: #fff;
+    font: 600 18px / 20px "Montserrat", sans-serif;
+    text-align: center;
+}
+
+.section__actions {
+    position: absolute;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section__action {
+    width: 24px;
+    height: 24px;
+    padding: 5px;
+    border-radius: 4px;
+    background: #fff;
+    transition: transform 150ms;
+}
+
+.section__action:active {
+    transform: scale(0.95);
+}
+
+.section__action--edit {
+    background: #fff url(./i/pencil.svg) no-repeat 50% 50% / 18px auto;
+}
+
+.section__action--delete {
+    background: #fff url(./i/trash.svg) no-repeat 50% 50% / 18px auto;
+}

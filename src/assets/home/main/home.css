@@ -28,5 +28,10 @@
     color: #fff;
     position: sticky;
     bottom: 20px;
+    transition: transform 200ms ease;
+}
+
+.home__total:active {
+    transform: scale(0.95);
 }
 

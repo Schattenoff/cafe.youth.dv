@@ -1,0 +1,151 @@
+.dishForm__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.dishForm {
+    background: #fff;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dishForm__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.dishForm__header h3 {
+    margin: 0;
+    font-size: 25px;
+}
+
+.dishForm__header button {
+    background: none;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.dishForm__body {
+    padding: 16px;
+}
+
+.dishForm__field {
+    width: 100%;
+    margin: 0 0 10px 0;
+}
+
+.dishForm__field:last-child {
+    margin: 0;
+}
+
+.dishForm__caption {
+    font: 500 16px / 18px "Montserrat", sans-serif;
+    margin: 0 0 10px 5px;
+}
+
+.dishForm__input {
+    position: relative;
+    border: 1px solid #d5d5d5;
+    text-align: left;
+    border-radius: 8px;
+    font: 700 20px / 24px "Montserrat", sans-serif;
+    height: 50px;
+    width: 100%;
+    padding: 2px 16px 0 16px;
+}
+
+.dishForm__footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+}
+
+.dishForm__submit {
+    background: #2DC36A;
+    border: 0;
+    color: #fff;
+    font: 600 19px / 52px "Montserrat", sans-serif;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+    transition: background 150ms, transform 200ms;
+    text-align: center;
+}
+
+.dishForm__submit:active {
+    transform: scale(0.95);
+}
+
+.dishForm__imageUpload {
+    position: relative;
+}
+
+.dishForm__imageUpload input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.dishForm__imageUploadPlaceholder {
+    border: 2px dashed #ddd;
+    border-radius: 4px;
+    padding: 30px;
+    text-align: center;
+    color: #888;
+    transition: all 0.3s;
+}
+
+.dishForm__imageUploadPlaceholder:hover {
+    border-color: #42b983;
+    color: #42b983;
+}
+
+.dishForm__imagePreview {
+    position: relative;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow: hidden;
+}
+
+.dishForm__imagePreview img {
+    width: 100%;
+    display: block;
+}
+
+.dishForm__removeImage {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

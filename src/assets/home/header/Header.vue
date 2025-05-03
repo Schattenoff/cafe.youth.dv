@@ -14,10 +14,11 @@ export default {
 
 <template>
     <header class="header">
-        <div class="header__refresh" @click="handleRefresh()">refresh</div>
+        <div class="header__refresh" @click="handleRefresh()">
+
+        </div>
         <div>Cafe Youth DV</div>
         <div class="header__search">
-            search
         </div>
     </header>
 </template>

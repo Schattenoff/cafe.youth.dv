@@ -64,6 +64,22 @@
     position: relative;
     border-radius: 8px;
     display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.dish__action:active {
+    transform: scale(0.95);
+}
+
+.dish__cartBtn {
+    background: #31BC6B;
+    color: #fff;
+    border-radius: 8px;
+    padding: 4px 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
 }
 
 .dish__actionMinus:before {

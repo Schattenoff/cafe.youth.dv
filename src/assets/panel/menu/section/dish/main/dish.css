@@ -1,0 +1,63 @@
+.dish {
+    position: relative;
+    border-radius: 8px;
+    border: 1px solid #d5d5d5;
+    padding: 10px;
+    margin: 0 0 10px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.dish__photo {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background: #fff url(./i/empty.svg) no-repeat 50% 50% / 34px auto;
+}
+
+.dish__wrap {
+    margin: 0 0 0 15px;
+}
+
+.dish__price {
+    margin: 3px 0 0 0;
+    font: 600 16px / 18px "Montserrat", sans-serif;
+}
+
+.dish__add {
+    border-radius: 8px;
+    padding: 10px;
+    margin: 0 0 10px 10px;
+    color: #fff;
+    background: #2DC36A;
+    text-align: center;
+}
+
+.dish__actions {
+    position: absolute;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dish__action {
+    width: 24px;
+    height: 24px;
+    padding: 5px;
+    border-radius: 4px;
+    background: #fff;
+    transition: transform 150ms;
+}
+
+.dish__action:active {
+    transform: scale(0.95);
+}
+
+.dish__action--edit {
+    background: #fff url(./i/pencil.svg) no-repeat 50% 50% / 18px auto;
+}
+
+.dish__action--delete {
+    background: #fff url(./i/trash.svg) no-repeat 50% 50% / 18px auto;
+}
