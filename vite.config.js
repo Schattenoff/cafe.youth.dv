@@ -10,6 +10,14 @@ export default defineConfig({
     vue(),
     vercel()
   ],
+  vercel: {
+    rewrites: [
+      {
+        source: "/(.*)",
+        destination: "/index.html"
+      }
+    ]
+  },
   server: {
     host: true,
   },
