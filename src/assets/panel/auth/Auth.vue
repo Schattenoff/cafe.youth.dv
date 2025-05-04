@@ -36,7 +36,9 @@ export default {
                 <div class="auth__caption">Пароль</div>
                 <input class="auth__input" type="password" v-model="password" />
             </label>
-            <button class="auth__btn" @click="auth()">Войти</button>
+            <button class="auth__btn" @click="auth()">
+                Войти
+            </button>
         </div>
     </div>
 </template>

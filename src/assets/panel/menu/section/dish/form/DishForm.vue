@@ -138,7 +138,10 @@ export default {
                 </div>
 
                 <div class="dishForm__footer">
-                    <div class="dishForm__submit" @click="onSubmit()">{{ buttonText }}</div>
+                    <div class="dishForm__submit" @click="onSubmit()">
+                        <div v-if="isLoading" class="dishForm__spinner"></div>
+                        <span v-else>{{ buttonText }}</span>
+                    </div>
                 </div>
             </div>
         </div>

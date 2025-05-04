@@ -81,7 +81,10 @@ export default {
                 <span>Итого</span> <span>{{ totalAmount }} BYN</span>
             </div>
 
-            <div class="cart__submit" @click="submit()">Заказать</div>
+            <div class="cart__submit" @click="submit()">
+                <div v-if="isLoading" class="cart__spinner"></div>
+                <span v-else>Заказать</span>
+            </div>
         </template>
 
         <div v-else-if="isSuccess" class="cart__success">

@@ -79,14 +79,16 @@
     background: #2DC36A;
     border: 0;
     color: #fff;
-    font: 600 19px / 52px "Montserrat", sans-serif;
+    font: 600 19px / 19px "Montserrat", sans-serif;
     position: relative;
     cursor: pointer;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     border-radius: 8px;
     transition: background 150ms, transform 200ms;
-    text-align: center;
+    height: 50px;
 }
 
 .dishForm__submit:active {
@@ -148,4 +150,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.dishForm__spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

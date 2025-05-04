@@ -18,6 +18,7 @@ export default {
     data() {
         return {
             isReady: false,
+            isLoading: false,
             isOpenCart: false,
             sections: null,
             activeSectionId: null,

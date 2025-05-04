@@ -75,7 +75,10 @@ export default {
                     <input class="sectionForm__input" type="text" id="title" v-model="name" required>
                 </div>
                 <div class="sectionForm__footer">
-                    <div class="sectionForm__submit" @click="onSubmit()">{{ buttonText }}</div>
+                    <div class="sectionForm__submit" @click="onSubmit()">
+                        <div v-if="isLoading" class="sectionForm__spinner"></div>
+                        <span v-else>{{ buttonText }}</span>
+                    </div>
                 </div>
             </div>
         </div>
