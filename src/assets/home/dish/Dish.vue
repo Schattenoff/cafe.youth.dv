@@ -7,6 +7,10 @@ export default {
     computed: {
         totalAmount() {
             return this.dish.price.toFixed(2);
+        },
+
+        srcImage() {
+            return this.dish.imageUrl ? this.dish.imageUrl : '/default.jpg';
         }
     },
 
@@ -23,10 +27,10 @@ export default {
 </script>
 
 <template>
-    <div class="dish">
+    <div v-if="dish.isVisible" class="dish">
         <div class="dish__photoWrap">
             <img class="dish__photo"
-                 :src="dish.imageUrl"
+                 :src="srcImage"
                  :alt="dish.name" />
         </div>
         <div class="dish__content">

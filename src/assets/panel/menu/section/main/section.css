@@ -13,6 +13,10 @@
     align-items: center;
 }
 
+.section--hidden .section__title {
+    color: rgba(0,0,0,0.5);
+}
+
 .section__add {
     padding: 10px;
     border-radius: 8px;
@@ -45,6 +49,14 @@
 
 .section__action--edit {
     background: #fff url(./i/pencil.svg) no-repeat 50% 50% / 18px auto;
+}
+
+.section__action--visible {
+    background: #fff url(./i/eye.svg) no-repeat 50% 50% / 18px auto;
+}
+
+.section__action--notVisible {
+    background: #fff url(./i/eyeOff.svg) no-repeat 50% 50% / 18px auto;
 }
 
 .section__action--delete {

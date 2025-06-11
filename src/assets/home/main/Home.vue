@@ -127,18 +127,20 @@ export default {
         <Header @refresh="refresh()" />
         <Nav :navs="navs" :activeSectionId="activeSectionId" />
         <div class="home__sections">
-            <div v-for="section in visibleSections"
-                 :id="section.id"
-                 :key="section.id"
-                 ref="sectionRefs"
-                 class="home__section">
-                <h2 class="home__sectionTitle">{{section.name}}</h2>
-                <div class="home__dishes">
-                    <Dish v-for="dish in section.dishes"
-                          :dish="dish"
-                          :key="dish.id" />
+            <template v-for="section in visibleSections">
+                <div v-if=section.isVisible
+                     :id="'sect' + section.id"
+                     :key="section.id"
+                     ref="sectionRefs"
+                     class="home__section">
+                    <h2 class="home__sectionTitle">{{section.name}}</h2>
+                    <div class="home__dishes">
+                        <Dish v-for="dish in section.dishes"
+                              :dish="dish"
+                              :key="dish.id" />
+                    </div>
                 </div>
-            </div>
+            </template>
         </div>
         <div v-if="Math.round(totalAmount)" class="home__total" @click="openCart()">
             <div>Мой заказ: </div>

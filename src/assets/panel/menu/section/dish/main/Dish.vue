@@ -28,6 +28,14 @@ export default {
                 'background-size': 'cover',
                 'background-image': `url(${this.dish.imageUrl})`
             }
+        },
+
+        classVisible() {
+            if(this.dish.isVisible) {
+                return 'dish__action--visible';
+            } else {
+                return 'dish__action--notVisible';
+            }
         }
     },
 
@@ -57,14 +65,30 @@ export default {
 
                 this.refetchSections();
             });
+        },
+
+        onToggleVisible() {
+            const payload = {
+                id: this.dish.id,
+                isVisible: !this.dish.isVisible
+            }
+
+            apiRequest('put', '/dish', payload, (res) => {
+                if (res.error) {
+                    return;
+                }
+
+                this.refetchSections();
+            })
         }
+
     }
 
 }
 </script>
 
 <template>
-    <div v-if="dish.id" class="dish">
+    <div v-if="dish.id" class="dish" :class="{'dish--hidden': !dish.isVisible}">
         <div class="dish__photo" :style="photoStyle"></div>
         <div class="dish__wrap">
             <div class="dish__name">{{ dish.name }}</div>
@@ -72,6 +96,7 @@ export default {
         </div>
         <div class="dish__actions">
             <div class="dish__action dish__action--edit" @click="onEditForm()"></div>
+            <div class="dish__action" :class="classVisible" @click="onToggleVisible()"></div>
             <div class="dish__action dish__action--delete" @click="onDelete()"></div>
         </div>
     </div>

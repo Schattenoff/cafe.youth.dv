@@ -25,6 +25,14 @@ export default {
     computed: {
         dishes() {
             return this.section.dishes;
+        },
+
+        classVisible() {
+            if(this.section.isVisible) {
+                return 'section__action--visible';
+            } else {
+                return 'section__action--notVisible';
+            }
         }
     },
 
@@ -55,18 +63,36 @@ export default {
 
                 this.refetchSections();
             });
+        },
+
+        onToggleVisible() {
+            const payload = {
+                id: this.section.id,
+                isVisible: !this.section.isVisible
+            }
+
+            apiRequest('put', '/section', payload, (res) => {
+                if (res.error) {
+                    return;
+                }
+
+                this.refetchSections();
+            })
         }
     }
 }
 </script>
 
 <template>
-    <div v-if="section.id" class="section">
+    <div v-if="section.id"
+         class="section"
+         :class="{ 'section--hidden': !section.isVisible }">
         <div class="section__title">
             {{ section.name }}
 
             <div class="section__actions">
                 <div class="section__action section__action--edit" @click="onEditForm()"></div>
+                <div class="section__action" :class="classVisible" @click="onToggleVisible()"></div>
                 <div class="section__action section__action--delete" @click="onDelete()"></div>
             </div>
         </div>

@@ -15,8 +15,16 @@
     background: #fff url(./i/empty.svg) no-repeat 50% 50% / 34px auto;
 }
 
+.dish--hidden .dish__photo {
+    opacity: 0.5;
+}
+
 .dish__wrap {
     margin: 0 0 0 15px;
+}
+
+.dish--hidden .dish__wrap {
+    opacity: 0.5;
 }
 
 .dish__price {
@@ -60,4 +68,12 @@
 
 .dish__action--delete {
     background: #fff url(./i/trash.svg) no-repeat 50% 50% / 18px auto;
+}
+
+.dish__action--visible {
+    background: #fff url(./i/eye.svg) no-repeat 50% 50% / 18px auto;
+}
+
+.dish__action--notVisible {
+    background: #fff url(./i/eyeOff.svg) no-repeat 50% 50% / 18px auto;
 }
