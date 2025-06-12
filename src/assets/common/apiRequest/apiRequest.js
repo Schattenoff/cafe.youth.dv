@@ -9,9 +9,9 @@ import axios from 'axios';
  * @param {function} [onError=()=>{}] - Коллбэк при ошибке
  */
 
-const isDevelop = true;
+const isDevelop = false;
 
-const baseUrl = isDevelop ? 'http://89.169.45.188:3000' : 'http://89.169.45.188:3000';
+const baseUrl = isDevelop ? 'http://localhost:3000' : 'https://cafeapi-production-dc1b.up.railway.app';
 
 export async function apiRequest(
     method,
