@@ -4,6 +4,12 @@ export default {
 
     props: ['item'],
 
+    computed: {
+        photoSrc() {
+            return this.item.imageUrl ? this.item.imageUrl : '/default.jpg';
+        }
+    },
+
     methods: {
         minus() {
             this.item.count--;
@@ -18,7 +24,7 @@ export default {
 <template>
     <div class="cItem">
         <div class="cItem__photoWrap">
-            <img class="cItem__photo" :src="item.imageUrl" :alt="item.name" />
+            <img class="cItem__photo" :src="photoSrc" :alt="item.name" />
         </div>
 
         <div class="cItem__info">

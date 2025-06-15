@@ -28,7 +28,6 @@ export default {
         window.addEventListener('scroll', this.onScroll);
 
         this.navSections = this.initSections();
-        console.log('navSections', this.navSections);
     },
 
     unmounted() {
