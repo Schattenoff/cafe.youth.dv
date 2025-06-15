@@ -4,6 +4,12 @@ export default {
 
     props: ['dish'],
 
+    data() {
+        return {
+            isFocusDishCount: false,
+        }
+    },
+
     computed: {
         totalAmount() {
             return this.dish.price.toFixed(2);
@@ -11,10 +17,22 @@ export default {
 
         srcImage() {
             return this.dish.imageUrl ? this.dish.imageUrl : '/default.jpg';
+        },
+
+        visibleActions() {
+            return this.dish.count || this.isFocusDishCount;
         }
     },
 
     methods: {
+        handleFocus() {
+            this.isFocusDishCount = true;
+        },
+
+        handleBlur() {
+            this.isFocusDishCount = false;
+        },
+
         handleMinus() {
             this.dish.count--;
         },
@@ -36,10 +54,15 @@ export default {
         <div class="dish__content">
             <div class="dish__name">{{ dish.name }}</div>
             <div class="dish__amount">{{ totalAmount }} BYN</div>
-            <div v-if="dish.count" class="dish__actions">
+            <div v-if="visibleActions" class="dish__actions">
                 <div class="dish__action dish__actionMinus" @click="handleMinus()">
                 </div>
-                <input class="dish__count" v-model="dish.count" />
+                <input ref="dishCount"
+                       class="dish__count"
+                       type="number"
+                       v-model="dish.count"
+                       @focus="handleFocus"
+                       @blur="handleBlur" />
                 <div class="dish__action dish__actionPlus" @click="handlePlus()">
                 </div>
             </div>

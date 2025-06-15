@@ -30,7 +30,7 @@ export default {
         visibleSections() {
             if(!this.sections) return [];
 
-            return this.sections.filter(section => section.dishes.length);
+            return this.sections.filter(section => section.dishes.length && section.isVisible);
         },
 
         navs() {
