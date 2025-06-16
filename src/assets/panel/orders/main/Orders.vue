@@ -48,7 +48,7 @@ export default {
                 return
             }
 
-            return this.totalOrders.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            return this.totalOrders.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2);
         }
     },
 

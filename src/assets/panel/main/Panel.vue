@@ -37,6 +37,10 @@ export default {
         auth() {
             this.isAuth = true;
             localStorage.setItem('auth', true);
+        },
+
+        openDrawer() {
+
         }
     },
 
@@ -44,7 +48,12 @@ export default {
 </script>
 
 <template>
+    <div v-if="isAuth" class="panel__header">
+        <div class="panel__menu" @click="openDrawer"></div>
+    </div>
     <Menu v-if="isMenu" />
     <Orders v-else-if="isOrders" />
     <Auth v-else @auth="auth()" />
 </template>
+
+<style src="./panel.css" scoped />

@@ -29,6 +29,10 @@ export default {
                 acc += dish.price * dish.count;
                 return acc;
             }, 0).toFixed(2);
+        },
+
+        isDisabled() {
+            return this.userName.length < 2;
         }
     },
 
@@ -81,7 +85,7 @@ export default {
                 <span>Итого</span> <span>{{ totalAmount }} BYN</span>
             </div>
 
-            <div class="cart__submit" @click="submit()">
+            <div class="cart__submit" :class="{'cart__submit--disabled': isDisabled}" @click="submit()">
                 <div v-if="isLoading" class="cart__spinner"></div>
                 <span v-else>Заказать</span>
             </div>
