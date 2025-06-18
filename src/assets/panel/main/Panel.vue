@@ -2,6 +2,7 @@
 import Auth from "@/assets/panel/auth/Auth.vue";
 import Menu from "@/assets/panel/menu/main/Menu.vue";
 import Orders from "@/assets/panel/orders/main/Orders.vue";
+import Drawer from "@/assets/panel/drawer/Drawer.vue";
 
 export default {
     name: "Panel",
@@ -10,11 +11,13 @@ export default {
         Menu,
         Auth,
         Orders,
+        Drawer
     },
 
     data() {
         return {
             isAuth: false,
+            isOpenDrawer: false,
         }
     },
 
@@ -40,14 +43,20 @@ export default {
         },
 
         openDrawer() {
+            this.isOpenDrawer = true;
+        },
 
-        }
+        closeDrawer() {
+            this.isOpenDrawer = false;
+        },
     },
 
 }
 </script>
 
 <template>
+    <Drawer v-if="isOpenDrawer"
+            @close="closeDrawer" />
     <div v-if="isAuth" class="panel__header">
         <div class="panel__menu" @click="openDrawer"></div>
     </div>

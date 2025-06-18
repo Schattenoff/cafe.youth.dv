@@ -84,13 +84,14 @@ export default {
             </div>
             <div class="orders__totalPrice">Цена за все {{ totalPrice }} BYN</div>
         </div>
-        <div class="orders__list">
+        <div v-if="orders.length" class="orders__list">
 
             <OrdersItem v-for="order in orders"
                         :key="order.id"
                         :order="order"></OrdersItem>
 
         </div>
+        <div v-else>Заказов нет..</div>
     </div>
 </template>
 
