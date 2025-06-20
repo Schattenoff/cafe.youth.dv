@@ -7,6 +7,14 @@ export default {
     computed: {
         createdAtDateFormat() {
             return this.dateFormat(new Date(this.order.createdAt));
+        },
+
+        total() {
+            const sum = this.order.items.reduce((acc, item) => {
+                return acc + (item.dish.price * item.quantity);
+            }, 0);
+
+            return sum.toFixed(2);
         }
     },
 
@@ -34,6 +42,10 @@ export default {
             <div v-for="item in order.items" :key="item.id" class="item__dish">
                 <span class="item__dishName">{{ item.dish.name }}</span>
                 <span class="item__quantity">x{{ item.quantity }}</span>
+            </div>
+            <div class="item__total">
+                <div>Итого:</div>
+                <div>{{total}} BYN</div>
             </div>
         </div>
     </div>

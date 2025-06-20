@@ -4,6 +4,7 @@ import Nav from "@/assets/home/nav/Nav.vue";
 import Dish from "@/assets/home/dish/Dish.vue";
 import Cart from "@/assets/home/cart/main/Cart.vue";
 import {apiRequest} from "@/assets/common/apiRequest/apiRequest.js";
+import Warning from "@/assets/home/warning/Warning.vue";
 
 export default {
     name: "Home",
@@ -12,7 +13,8 @@ export default {
         Header,
         Nav,
         Dish,
-        Cart
+        Cart,
+        Warning
     },
 
     data() {
@@ -45,6 +47,10 @@ export default {
                 acc += dish.price * dish.count;
                 return acc;
             }, 0).toFixed(2);
+        },
+
+        isSunday() {
+            return new Date().getDay() === 0;
         }
     },
 
@@ -123,6 +129,7 @@ export default {
 </script>
 
 <template>
+    <Warning v-if="isSunday" />
     <div v-if="isReady" class="home">
         <Header @refresh="refresh()" />
         <Nav :navs="navs" :activeSectionId="activeSectionId" />

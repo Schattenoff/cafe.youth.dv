@@ -6,3 +6,15 @@
     font: 500 30px/34px "Montserrat", sans-serif;
     margin: 15px 0;
 }
+
+.orders__total {
+    font-size: 20px;
+}
+
+.orders__totalPrice {
+    margin: 10px 0 0 0;
+}
+
+.orders__totalPrice span {
+    font-weight: 500;
+}
