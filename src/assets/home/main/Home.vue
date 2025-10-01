@@ -49,8 +49,22 @@ export default {
             }, 0).toFixed(2);
         },
 
-        isSunday() {
-            return new Date().getDay() === 0;
+        isDisabledPreorder() {
+            const now = new Date();
+            const dayOfWeek = now.getDay();
+            const currentTime = now.getHours() + now.getMinutes() / 60;
+
+            // Воскресенье (0) - весь день
+            if (dayOfWeek === 0) {
+                return true;
+            }
+
+            // Суббота (6) с 12:00
+            if (dayOfWeek === 6 && currentTime >= 12) {
+                return true;
+            }
+
+            return false;
         }
     },
 
@@ -129,7 +143,7 @@ export default {
 </script>
 
 <template>
-    <Warning v-if="isSunday" />
+    <Warning v-if="isDisabledPreorder" />
     <div v-if="isReady" class="home">
         <Header @refresh="refresh()" />
         <Nav :navs="navs" :activeSectionId="activeSectionId" />
