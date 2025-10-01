@@ -11,7 +11,7 @@ export default {
 <template>
     <div class="warning">
         <div class="warning__text">
-            Предзаказ возможен только до воскресенья!
+            Предзаказ недоступен!
         </div>
     </div>
 </template>
