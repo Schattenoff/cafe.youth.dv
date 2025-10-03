@@ -47,6 +47,13 @@
 
 .cart__items {
     margin: 20px 0;
+    overflow: hidden;
+    overflow-y: auto;
+    height: calc(100vh - 82px - 215px);
+}
+
+.cart__items::-webkit-scrollbar {
+    display: none;
 }
 
 .cart__empty {
