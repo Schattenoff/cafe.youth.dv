@@ -32,7 +32,7 @@ export default {
                 {{ item.name }}
             </div>
             <div class="cItem__price">
-                {{ item.price }} BYN
+                {{ item.price }} руб.
             </div>
         </div>
 

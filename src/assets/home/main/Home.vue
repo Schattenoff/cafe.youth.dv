@@ -165,7 +165,7 @@ export default {
         </div>
         <div v-if="Math.round(totalAmount)" class="home__total" @click="openCart()">
             <div>Мой заказ: </div>
-            <div>{{ totalAmount }} BYN</div>
+            <div>{{ totalAmount }} руб.</div>
         </div>
         <Cart v-if="isOpenCart" :sections="visibleSections" @close="closeCart" />
     </div>

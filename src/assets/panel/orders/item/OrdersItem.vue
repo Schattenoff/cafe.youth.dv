@@ -45,7 +45,7 @@ export default {
             </div>
             <div class="item__total">
                 <div>Итого:</div>
-                <div>{{total}} BYN</div>
+                <div>{{total}} руб.</div>
             </div>
         </div>
     </div>

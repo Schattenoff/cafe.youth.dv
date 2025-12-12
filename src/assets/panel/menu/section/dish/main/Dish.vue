@@ -92,7 +92,7 @@ export default {
         <div class="dish__photo" :style="photoStyle"></div>
         <div class="dish__wrap">
             <div class="dish__name">{{ dish.name }}</div>
-            <div class="dish__price">{{ dish.price.toFixed(2) }} BYN</div>
+            <div class="dish__price">{{ dish.price.toFixed(2) }} руб.</div>
         </div>
         <div class="dish__actions">
             <div class="dish__action dish__action--edit" @click="onEditForm()"></div>

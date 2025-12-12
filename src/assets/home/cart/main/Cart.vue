@@ -82,7 +82,7 @@ export default {
             </div>
 
             <div class="cart__total">
-                <span>Итого</span> <span>{{ totalAmount }} BYN</span>
+                <span>Итого</span> <span>{{ totalAmount }} руб.</span>
             </div>
 
             <div class="cart__submit" :class="{'cart__submit--disabled': isDisabled}" @click="submit()">

@@ -53,7 +53,7 @@ export default {
         </div>
         <div class="dish__content">
             <div class="dish__name">{{ dish.name }}</div>
-            <div class="dish__amount">{{ totalAmount }} BYN</div>
+            <div class="dish__amount">{{ totalAmount }} руб.</div>
             <div v-if="visibleActions" class="dish__actions">
                 <div class="dish__action dish__actionMinus" @click="handleMinus()">
                 </div>

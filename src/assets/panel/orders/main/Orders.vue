@@ -82,7 +82,7 @@ export default {
             <div v-for="item in totalOrders">
                 {{ item.name }} x {{ item.quantity }}
             </div>
-            <div class="orders__totalPrice">Цена за все <span>{{ totalPrice }}</span> BYN</div>
+            <div class="orders__totalPrice">Цена за все <span>{{ totalPrice }}</span> руб.</div>
         </div>
         <div v-if="orders.length" class="orders__list">
 
