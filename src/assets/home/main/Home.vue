@@ -148,7 +148,7 @@ export default {
         <Header @refresh="refresh()" />
         <Nav :navs="navs" :activeSectionId="activeSectionId" />
         <div class="home__donation">
-            Указанная стоимость является добровольным пожертвованием
+            Указанная стоимость является пожертвованием
         </div>
         <div class="home__sections">
             <template v-for="section in visibleSections">

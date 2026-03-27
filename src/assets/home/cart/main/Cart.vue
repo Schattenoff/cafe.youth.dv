@@ -82,7 +82,7 @@ export default {
             </div>
 
             <div class="cart__donation">
-                Указанная стоимость является добровольным пожертвованием
+                Указанная стоимость является пожертвованием
             </div>
 
             <div class="cart__total">
