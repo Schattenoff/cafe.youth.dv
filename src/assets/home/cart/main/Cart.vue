@@ -81,6 +81,10 @@ export default {
                 <CartItem v-for="item in dishes" :key="item.id" :item="item" />
             </div>
 
+            <div class="cart__donation">
+                Указанная стоимость является добровольным пожертвованием
+            </div>
+
             <div class="cart__total">
                 <span>Итого</span> <span>{{ totalAmount }} руб.</span>
             </div>

@@ -147,6 +147,9 @@ export default {
     <div v-if="isReady" class="home">
         <Header @refresh="refresh()" />
         <Nav :navs="navs" :activeSectionId="activeSectionId" />
+        <div class="home__donation">
+            Указанная стоимость является добровольным пожертвованием
+        </div>
         <div class="home__sections">
             <template v-for="section in visibleSections">
                 <div v-if=section.isVisible
