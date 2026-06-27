@@ -59,8 +59,8 @@ export default {
                 return true;
             }
 
-            // Суббота (6) с 12:00
-            if (dayOfWeek === 6 && currentTime >= 12) {
+            // Суббота (6) с 19:00 (временно)
+            if (dayOfWeek === 6 && currentTime >= 19) {
                 return true;
             }
 
