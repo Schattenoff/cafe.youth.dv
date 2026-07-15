@@ -13,6 +13,7 @@ export default {
             isLoading: false,
             name: '',
             price: '',
+            quantity: '',
             image: '',
             imagePreview: '',
         }
@@ -32,6 +33,7 @@ export default {
         if(this.isEdit && this.dish) {
             this.name = this.dish.name;
             this.price = this.dish.price;
+            this.quantity = this.dish.quantity ?? '';
             this.imagePreview = this.dish.imageUrl;
         }
     },
@@ -69,6 +71,7 @@ export default {
             formData.append('name', this.name);
             formData.append('price', this.price);
             formData.append('sectionId', this.section.id);
+            formData.append('quantity', this.quantity);
             formData.append('image', this.image);
 
             apiRequest(this.isEdit ? 'put' : 'post', '/dish', formData, (res) => {
@@ -134,6 +137,18 @@ export default {
                         min="0"
                         step="0.01"
                         required
+                    >
+                </div>
+
+                <div class="dishForm__field">
+                    <div class="dishForm__caption">Остаток, шт. (пусто — без ограничения)</div>
+                    <input
+                        class="dishForm__input"
+                        type="number"
+                        v-model.number="quantity"
+                        min="0"
+                        step="1"
+                        placeholder="без ограничения"
                     >
                 </div>
 

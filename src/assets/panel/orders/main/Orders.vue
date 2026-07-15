@@ -9,6 +9,12 @@ export default {
         OrdersItem,
     },
 
+    provide() {
+        return {
+            refetchOrders: () => this.getOrders(),
+        }
+    },
+
     data() {
         return {
             isReady: false,

@@ -15,6 +15,45 @@
     background: #fff;
 }
 
+.dish__badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 2;
+    background: #31BC6B;
+    color: #fff;
+    font: 600 13px / 14px "Montserrat", sans-serif;
+    padding: 5px 9px;
+    border-radius: 8px;
+}
+
+.dish--soldOut .dish__photo {
+    opacity: 0.4;
+}
+
+.dish--soldOut .dish__content {
+    opacity: 0.6;
+}
+
+.dish__soldOut {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font: 700 16px / 20px "Montserrat", sans-serif;
+    padding: 8px 6px;
+}
+
+.dish__action--disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
 .dish__photo {
     display: block;
     position: absolute;

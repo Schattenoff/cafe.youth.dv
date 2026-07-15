@@ -56,7 +56,7 @@ export default {
                 this.isLoading = false;
 
                 if (res.error) {
-                    console.log(res.error);
+                    window.alert(res.message || 'Не удалось оформить заказ');
                     return;
                 }
 

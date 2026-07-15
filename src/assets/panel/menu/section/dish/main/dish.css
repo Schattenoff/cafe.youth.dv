@@ -32,6 +32,16 @@
     font: 600 16px / 18px "Montserrat", sans-serif;
 }
 
+.dish__stock {
+    margin: 4px 0 0 0;
+    font: 500 13px / 15px "Montserrat", sans-serif;
+    color: #2DC36A;
+}
+
+.dish__stock--empty {
+    color: #c0392b;
+}
+
 .dish__add {
     border-radius: 8px;
     padding: 10px;

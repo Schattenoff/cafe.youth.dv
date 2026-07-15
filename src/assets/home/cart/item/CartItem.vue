@@ -15,6 +15,10 @@ export default {
             this.item.count--;
         },
         plus() {
+            // Не превышаем остаток у блюд с лимитом
+            if (this.item.quantity != null && this.item.count >= this.item.quantity) {
+                return;
+            }
             this.item.count++;
         },
     },

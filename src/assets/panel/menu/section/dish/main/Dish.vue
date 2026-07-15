@@ -93,6 +93,11 @@ export default {
         <div class="dish__wrap">
             <div class="dish__name">{{ dish.name }}</div>
             <div class="dish__price">{{ dish.price.toFixed(2) }} руб.</div>
+            <div v-if="dish.quantity !== null && dish.quantity !== undefined"
+                 class="dish__stock"
+                 :class="{ 'dish__stock--empty': dish.quantity <= 0 }">
+                Остаток: {{ dish.quantity }} шт.
+            </div>
         </div>
         <div class="dish__actions">
             <div class="dish__action dish__action--edit" @click="onEditForm()"></div>

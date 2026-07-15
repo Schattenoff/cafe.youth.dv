@@ -1,8 +1,23 @@
 <script>
+import {apiRequest} from "@/assets/common/apiRequest/apiRequest.js";
+import OrderForm from "@/assets/panel/orders/form/OrderForm.vue";
+
 export default {
     name: "OrdersItem",
 
+    components: {
+        OrderForm,
+    },
+
+    inject: ['refetchOrders'],
+
     props: ['order'],
+
+    data() {
+        return {
+            isShowForm: false,
+        }
+    },
 
     computed: {
         createdAtDateFormat() {
@@ -30,12 +45,37 @@ export default {
             // Формируем строку в нужном формате
             return `${day}.${month}.${year} ${hours}:${minutes}`;
         },
+
+        onEditForm() {
+            this.isShowForm = true;
+        },
+
+        onCloseForm() {
+            this.isShowForm = false;
+        },
+
+        onDelete() {
+            const payload = {};
+
+            window.confirm(`Вы уверены, что хотите удалить заказ «${this.order.name}»?`) &&
+            apiRequest('delete', `/order/${this.order.id}`, payload, (res) => {
+                if (res.error) {
+                    return;
+                }
+
+                this.refetchOrders();
+            });
+        },
     }
 }
 </script>
 
 <template>
     <div class="item">
+        <div class="item__actions">
+            <div class="item__action item__action--edit" @click="onEditForm()"></div>
+            <div class="item__action item__action--delete" @click="onDelete()"></div>
+        </div>
         <div class="item__created">Дата заказа: {{ createdAtDateFormat }}</div>
         <div class="item__name">Имя: <b>{{order.name }}</b></div>
         <div class="item__dishes">
@@ -49,6 +89,9 @@ export default {
             </div>
         </div>
     </div>
+    <OrderForm v-if="isShowForm"
+               :order="order"
+               @close="onCloseForm()" />
 </template>
 
 <style src="./orders-item.css" scoped />
