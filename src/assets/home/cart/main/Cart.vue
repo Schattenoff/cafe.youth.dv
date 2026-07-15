@@ -60,7 +60,7 @@ export default {
                     return;
                 }
 
-                this.$parent.refresh();
+                this.$parent.reloadStock();
 
                 this.isSuccess = true;
             });

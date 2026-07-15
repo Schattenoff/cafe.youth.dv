@@ -110,6 +110,27 @@ export default {
             })
         },
 
+        // Перезапрашиваем меню, чтобы подтянуть актуальный остаток (после заказа)
+        reloadStock() {
+            apiRequest('get', '/section', {}, (res) => {
+                if (res.error) {
+                    return;
+                }
+
+                this.sections = res.map(section => {
+                    return {
+                        ...section,
+                        dishes: section.dishes.map(dish => {
+                            return {
+                                ...dish,
+                                count: 0,
+                            }
+                        })
+                    }
+                });
+            });
+        },
+
         openCart() {
             this.isOpenCart = true;
         },
