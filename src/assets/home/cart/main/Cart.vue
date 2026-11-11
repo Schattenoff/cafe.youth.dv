@@ -104,7 +104,7 @@ export default {
 
 <template>
     <Curtain v-slot="{ close }" label="Корзина" @close="onClose">
-        <div ref="cart" class="cart" @scroll.passive="updateCheckoutShadow">
+        <div ref="cart" class="cart" tabindex="-1" autofocus @scroll.passive="updateCheckoutShadow">
             <div class="cart__controls">
                 <button v-if="dishes.length && !isSuccess" type="button" class="cart__iconButton"
                         aria-label="Очистить корзину" title="Очистить корзину"
@@ -150,15 +150,17 @@ export default {
             </div>
 
             <div v-else class="cart__empty">
-                <svg class="cart__emptyIcon" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M3 4h2l2.2 10h11.5L21 7H6" />
-                    <circle cx="9" cy="19" r="1" />
-                    <circle cx="18" cy="19" r="1" />
-                </svg>
-                <p>Ваша корзина пуста</p>
-                <button type="button" class="cart__goToMenu" @click="close">
-                    Перейти в меню
-                </button>
+                <div class="cart__emptyContent">
+                    <svg class="cart__emptyIcon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M3 4h2l2.2 10h11.5L21 7H6" />
+                        <circle cx="9" cy="19" r="1" />
+                        <circle cx="18" cy="19" r="1" />
+                    </svg>
+                    <p>Ваша корзина пуста</p>
+                    <button type="button" class="cart__goToMenu" @click="close">
+                        Перейти в меню
+                    </button>
+                </div>
             </div>
 
         </div>

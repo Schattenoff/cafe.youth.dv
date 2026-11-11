@@ -4,11 +4,15 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    min-height: calc(40dvh - var(--curtain-handle-height));
+    min-height: calc(50dvh - var(--curtain-handle-height));
     max-height: calc(90dvh - var(--curtain-handle-height));
     overflow: auto;
     overscroll-behavior: contain;
     padding: 10px 15px max(15px, env(safe-area-inset-bottom));
+}
+
+.cart:focus {
+    outline: none;
 }
 
 .cart:has(.cart__checkout) {
@@ -126,10 +130,23 @@
     font: 500 18px/20px "Montserrat", sans-serif;
 }
 
+.cart__empty {
+    min-height: 200px;
+    padding: 0;
+}
+
+.cart__emptyContent {
+    position: relative;
+}
+
 .cart__emptyIcon {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 0;
+    right: 0;
+    margin-inline: auto;
     width: 44px;
     height: 44px;
-    margin-bottom: 12px;
     fill: none;
     stroke: currentColor;
     stroke-width: 1.5;

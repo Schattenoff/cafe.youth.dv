@@ -114,8 +114,10 @@ export default {
     cursor: pointer;
 }
 
-.toolbar__button:hover {
-    background: var(--cafe-soft);
+@media (hover: hover) and (pointer: fine) {
+    .toolbar__button:hover {
+        background: var(--cafe-soft);
+    }
 }
 
 .toolbar__button[aria-current="page"],

@@ -167,10 +167,10 @@ export default {
 
 .curtain__handle::before {
     content: "";
-    width: 36px;
-    height: 4px;
-    border-radius: 4px;
-    background: #d5d5d5;
+    width: 48px;
+    height: 6px;
+    border-radius: 999px;
+    background: #bdbdbd;
 }
 
 .curtain[open]:not(.curtain--dragged):not(.curtain--closing) {

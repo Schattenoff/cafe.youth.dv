@@ -182,7 +182,7 @@ export default {
 <template>
     <Warning v-if="isDisabledPreorder" />
     <div v-if="isReady" class="home" :inert="isDisabledPreorder">
-        <Header @refresh="refresh()" />
+        <Header />
         <Nav :navs="navs" :activeSectionId="activeSectionId" />
         <div class="home__donation">
             Указанная стоимость является пожертвованием
