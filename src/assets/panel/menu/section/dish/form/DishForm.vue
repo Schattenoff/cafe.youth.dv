@@ -1,8 +1,11 @@
 <script>
+import Curtain from "@/assets/home/cart/curtain/Curtain.vue";
 import {apiRequest} from "@/assets/common/apiRequest/apiRequest.js";
 
 export default {
     name: "DishForm",
+
+    components: { Curtain },
 
     inject: ['refetchSections'],
 
@@ -81,7 +84,7 @@ export default {
                     return;
                 }
 
-                this.onClose();
+                this.$refs.curtain?.requestClose();
                 this.refetchSections();
             });
         }
@@ -90,11 +93,11 @@ export default {
 </script>
 
 <template>
-    <div class="dishForm__overlay" @click.self="onClose()">
+    <Curtain ref="curtain" v-slot="{ close }" :label="headerText" @close="onClose">
         <div class="dishForm">
             <div class="dishForm__header">
                 <h3>{{ headerText }}</h3>
-                <button @click="onClose">&times;</button>
+                <button type="button" aria-label="Закрыть" @click="close">&times;</button>
             </div>
             <div class="dishForm__body">
 
@@ -153,14 +156,14 @@ export default {
                 </div>
 
                 <div class="dishForm__footer">
-                    <div class="dishForm__submit" @click="onSubmit()">
+                    <button type="button" class="dishForm__submit" :disabled="isLoading" @click="onSubmit">
                         <div v-if="isLoading" class="dishForm__spinner"></div>
                         <span v-else>{{ buttonText }}</span>
-                    </div>
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
+    </Curtain>
 </template>
 
 <style src="./dish-form.css" scoped />

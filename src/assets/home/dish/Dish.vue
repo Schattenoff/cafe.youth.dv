@@ -4,6 +4,8 @@ export default {
 
     props: ['dish'],
 
+    emits: ['add'],
+
     data() {
         return {
             isFocusDishCount: false,
@@ -67,9 +69,10 @@ export default {
             this.dish.count--;
         },
 
-        handlePlus() {
+        handlePlus(event) {
             if (!this.canAdd) return;
             this.dish.count++;
+            this.$emit('add', event.currentTarget);
         }
     }
 }
@@ -86,7 +89,10 @@ export default {
         </div>
         <div class="dish__content">
             <div class="dish__name">{{ dish.name }}</div>
-            <div class="dish__amount">Пожертвование: {{ totalAmount }} руб.</div>
+            <div class="dish__amount">
+                <span class="dish__amountLabel">Пожертвование</span>
+                <span>{{ totalAmount }} руб.</span>
+            </div>
 
             <template v-if="!isSoldOut">
                 <div v-if="visibleActions" class="dish__actions">
@@ -100,10 +106,10 @@ export default {
                            @blur="handleBlur" />
                     <div class="dish__action dish__actionPlus"
                          :class="{ 'dish__action--disabled': !canAdd }"
-                         @click="handlePlus()">
+                         @click="handlePlus">
                     </div>
                 </div>
-                <div v-else class="dish__cartBtn" @click="handlePlus()">В корзину</div>
+                <div v-else class="dish__cartBtn" @click="handlePlus">В корзину</div>
             </template>
         </div>
     </div>

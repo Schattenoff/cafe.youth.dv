@@ -11,6 +11,13 @@ export default {
     },
 
     methods: {
+        useFallbackPhoto(event) {
+            const photo = event.currentTarget;
+            if (photo.getAttribute('src') !== '/default.jpg') {
+                photo.src = '/default.jpg';
+            }
+        },
+
         minus() {
             this.item.count--;
         },
@@ -28,22 +35,21 @@ export default {
 <template>
     <div class="cItem">
         <div class="cItem__photoWrap">
-            <img class="cItem__photo" :src="photoSrc" :alt="item.name" />
+            <img class="cItem__photo" :src="photoSrc" alt="" @error="useFallbackPhoto" />
         </div>
 
         <div class="cItem__info">
             <div class="cItem__name">
                 {{ item.name }}
             </div>
-            <div class="cItem__price">
-                {{ item.price }} руб.
+            <div class="cItem__details">
+                <div class="cItem__price">{{ item.price }} руб.</div>
+                <div class="cItem__actions">
+                    <div class="cItem__action cItem__actionMinus" @click="minus()"></div>
+                    <div class="cItem__count">{{ item.count }}</div>
+                    <div class="cItem__action cItem__actionPlus" @click="plus()"></div>
+                </div>
             </div>
-        </div>
-
-        <div class="cItem__actions">
-            <div class="cItem__action cItem__actionMinus" @click="minus()"></div>
-            <div class="cItem__count">{{ item.count }}</div>
-            <div class="cItem__action cItem__actionPlus" @click="plus()"></div>
         </div>
     </div>
 </template>

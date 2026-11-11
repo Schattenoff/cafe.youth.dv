@@ -18,6 +18,9 @@
 }
 
 .section__add {
+    min-height: 46px;
+    display: grid;
+    place-items: center;
     padding: 10px;
     border-radius: 8px;
     background: #2DC36A;
@@ -31,16 +34,20 @@
     right: 10px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
 }
 
 .section__action {
-    width: 24px;
-    height: 24px;
-    padding: 5px;
-    border-radius: 4px;
-    background: #fff;
-    transition: transform 150ms;
+    width: 29px;
+    height: 29px;
+    border: 1px solid #dce1e3;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background-color 150ms, transform 150ms;
+}
+
+.section__action:hover {
+    background-color: #e1e6e8;
 }
 
 .section__action:active {
@@ -48,17 +55,25 @@
 }
 
 .section__action--edit {
-    background: #fff url(./i/pencil.svg) no-repeat 50% 50% / 18px auto;
+    background: #f8f9f9 url(./i/pencil.svg) no-repeat 50% 50% / 18px auto;
 }
 
 .section__action--visible {
-    background: #fff url(./i/eye.svg) no-repeat 50% 50% / 18px auto;
+    background: #f8f9f9 url(./i/eye.svg) no-repeat 50% 50% / 18px auto;
 }
 
 .section__action--notVisible {
-    background: #fff url(./i/eyeOff.svg) no-repeat 50% 50% / 18px auto;
+    background: #f8f9f9 url(./i/eyeOff.svg) no-repeat 50% 50% / 18px auto;
 }
 
 .section__action--delete {
-    background: #fff url(./i/trash.svg) no-repeat 50% 50% / 18px auto;
+    background: #f8f9f9 url(./i/trash.svg) no-repeat 50% 50% / 18px auto;
+}
+.section__action:focus-visible {
+    outline: 2px solid #627784;
+    outline-offset: -2px;
+}
+
+.section__action--delete:hover {
+    background-color: #f3e3e3;
 }

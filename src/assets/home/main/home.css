@@ -1,10 +1,10 @@
 .home__donation {
     font: 500 14px / 18px "Montserrat", sans-serif;
-    color: #1a1a1a;
+    color: #5d503c;
     padding: 10px 12px;
     margin: 15px 10px 0 10px;
-    background: #fef3cd;
-    border-radius: 12px;
+    background: #ffefb8;
+    border-radius: 18px;
     text-align: center;
     text-wrap: balance;
 }
@@ -26,23 +26,16 @@
     padding: 20px 20px 15px 9px;
 }
 
-.home__total {
-    background: #31BC6B;
-    height: 50px;
-    margin: 0 10px;
-    padding: 0 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 8px;
-    font: 800 19px / 19px "Montserrat", sans-serif;
-    color: #fff;
-    position: sticky;
-    bottom: 20px;
-    transition: transform 200ms ease;
+.home {
+    --cafe-ink: #25332e;
+    --cafe-muted: #54655e;
+    --cafe-accent: #29815b;
+    --cafe-surface: #fff;
+    --cafe-soft: #f0f4f2;
+    --cafe-selected: #e5efeb;
+    --cafe-line: #dae4df;
+    min-height: 100dvh;
+    background: #f3f5f4;
+    color: var(--cafe-ink);
+    padding-bottom: calc(82px + env(safe-area-inset-bottom));
 }
-
-.home__total:active {
-    transform: scale(0.95);
-}
-

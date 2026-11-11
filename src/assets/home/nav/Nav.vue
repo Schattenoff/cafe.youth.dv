@@ -91,7 +91,7 @@ export default {
 
 
         onScroll() {
-            if (!this.scrollBusy) {
+            if (this.navSections?.length && !this.scrollBusy) {
                 this.scrollBusy = true;
                 this.recalcCurrentSectionIndex();
             }

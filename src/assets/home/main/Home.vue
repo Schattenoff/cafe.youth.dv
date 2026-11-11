@@ -2,6 +2,7 @@
 import Header from "@/assets/home/header/Header.vue";
 import Nav from "@/assets/home/nav/Nav.vue";
 import Dish from "@/assets/home/dish/Dish.vue";
+import Toolbar from "@/assets/home/toolbar/Toolbar.vue";
 import Cart from "@/assets/home/cart/main/Cart.vue";
 import {apiRequest} from "@/assets/common/apiRequest/apiRequest.js";
 import Warning from "@/assets/home/warning/Warning.vue";
@@ -14,6 +15,7 @@ export default {
         Nav,
         Dish,
         Cart,
+        Toolbar,
         Warning
     },
 
@@ -25,6 +27,8 @@ export default {
             sections: null,
             activeSectionId: null,
             observer: null,
+            now: new Date(),
+            clockTimer: null,
         }
     },
 
@@ -32,7 +36,7 @@ export default {
         visibleSections() {
             if(!this.sections) return [];
 
-            return this.sections.filter(section => section.dishes.length && section.isVisible);
+            return this.sections.filter(section => section.isVisible && section.dishes.some(dish => dish.isVisible));
         },
 
         navs() {
@@ -46,11 +50,11 @@ export default {
             return this.visibleSections.map(section => (section.dishes)).flat().reduce((acc, dish ) => {
                 acc += dish.price * dish.count;
                 return acc;
-            }, 0).toFixed(2);
+            }, 0).toFixed(2).replace(/\.00$/, "");
         },
 
         isDisabledPreorder() {
-            const now = new Date();
+            const now = this.now;
             const dayOfWeek = now.getDay();
             const currentTime = now.getHours() + now.getMinutes() / 60;
 
@@ -59,8 +63,8 @@ export default {
                 return true;
             }
 
-            // Суббота (6) с 19:00 (временно)
-            if (dayOfWeek === 6 && currentTime >= 19) {
+            // Суббота с 15:00
+            if (dayOfWeek === 6 && currentTime >= 15) {
                 return true;
             }
 
@@ -70,9 +74,13 @@ export default {
 
     mounted() {
         this.getSections();
+        this.clockTimer = window.setInterval(() => {
+            this.now = new Date();
+        }, 1000);
     },
 
     unmounted() {
+        window.clearInterval(this.clockTimer);
         if (this.observer) this.observer.disconnect();
     },
 
@@ -85,7 +93,7 @@ export default {
                     return;
                 }
                 this.sections = res;
-                this.activeSectionId = this.sections[0].id;
+                this.activeSectionId = this.sections[0]?.id ?? null;
                 this.refresh();
                 this.isReady = true;
 
@@ -131,6 +139,14 @@ export default {
             });
         },
 
+        animateAddToCart(source) {
+            this.$refs.toolbar?.animateAdd(source);
+        },
+
+        goToMenu() {
+            window.scrollTo({ top: 0 });
+        },
+
         openCart() {
             this.isOpenCart = true;
         },
@@ -155,7 +171,7 @@ export default {
             }, options);
 
             // Начинаем наблюдение за всеми секциями
-            this.$refs.sectionRefs.forEach((section) => {
+            this.$refs.sectionRefs?.forEach((section) => {
                 this.observer.observe(section);
             });
         }
@@ -165,7 +181,7 @@ export default {
 
 <template>
     <Warning v-if="isDisabledPreorder" />
-    <div v-if="isReady" class="home">
+    <div v-if="isReady" class="home" :inert="isDisabledPreorder">
         <Header @refresh="refresh()" />
         <Nav :navs="navs" :activeSectionId="activeSectionId" />
         <div class="home__donation">
@@ -182,16 +198,14 @@ export default {
                     <div class="home__dishes">
                         <Dish v-for="dish in section.dishes"
                               :dish="dish"
+                              @add="animateAddToCart"
                               :key="dish.id" />
                     </div>
                 </div>
             </template>
         </div>
-        <div v-if="Math.round(totalAmount)" class="home__total" @click="openCart()">
-            <div>Мой заказ: </div>
-            <div>{{ totalAmount }} руб.</div>
-        </div>
-        <Cart v-if="isOpenCart" :sections="visibleSections" @close="closeCart" />
+        <Toolbar ref="toolbar" :total="totalAmount" :cart-open="isOpenCart" @menu="goToMenu" @cart="openCart" />
+        <Cart v-if="isOpenCart && !isDisabledPreorder" :sections="visibleSections" @close="closeCart" />
     </div>
 </template>
 

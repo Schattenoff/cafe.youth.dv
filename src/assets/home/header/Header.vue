@@ -14,12 +14,9 @@ export default {
 
 <template>
     <header class="header">
-        <div class="header__refresh" @click="handleRefresh()">
-
-        </div>
-        <div>Cafe Youth DV</div>
-        <div class="header__search">
-        </div>
+        <button type="button" class="header__refresh" aria-label="Очистить выбор"
+                @click="handleRefresh"></button>
+        <h1 class="header__title">Cafe Youth DV</h1>
     </header>
 </template>
 

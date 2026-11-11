@@ -1,8 +1,11 @@
 <script>
+import Curtain from "@/assets/home/cart/curtain/Curtain.vue";
 import {apiRequest} from "@/assets/common/apiRequest/apiRequest.js";
 
 export default {
     name: "SectionForm",
+
+    components: { Curtain },
 
     inject: ['refetchSections'],
 
@@ -53,7 +56,7 @@ export default {
                     return;
                 }
 
-                this.onClose();
+                this.$refs.curtain?.requestClose();
                 this.refetchSections();
             });
         }
@@ -63,11 +66,11 @@ export default {
 </script>
 
 <template>
-    <div class="sectionForm__overlay" @click.self="onClose()">
+    <Curtain ref="curtain" v-slot="{ close }" :label="headerText" @close="onClose">
         <div class="sectionForm">
             <div class="sectionForm__header">
                 <h3>{{ headerText }}</h3>
-                <button @click="onClose">&times;</button>
+                <button type="button" aria-label="Закрыть" @click="close">&times;</button>
             </div>
             <div class="sectionForm__body">
                 <div class="sectionForm__field">
@@ -75,14 +78,14 @@ export default {
                     <input class="sectionForm__input" type="text" id="title" v-model="name" required>
                 </div>
                 <div class="sectionForm__footer">
-                    <div class="sectionForm__submit" @click="onSubmit()">
+                    <button type="button" class="sectionForm__submit" :disabled="isLoading" @click="onSubmit">
                         <div v-if="isLoading" class="sectionForm__spinner"></div>
                         <span v-else>{{ buttonText }}</span>
-                    </div>
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
+    </Curtain>
 </template>
 
 <style src="./section-form.css" scoped />

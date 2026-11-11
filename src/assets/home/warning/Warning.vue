@@ -3,7 +3,12 @@ export default {
     name: "Warning",
 
     mounted() {
+        this.previousOverflow = document.body.style.overflow;
         document.body.style.overflow = 'hidden';
+    },
+
+    unmounted() {
+        document.body.style.overflow = this.previousOverflow;
     }
 }
 </script>

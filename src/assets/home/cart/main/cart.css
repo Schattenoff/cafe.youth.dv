@@ -1,72 +1,159 @@
 .cart {
+    color: #000;
     background: #fff;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    z-index: 999;
-    padding: 10px 15px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(40dvh - var(--curtain-handle-height));
+    max-height: calc(90dvh - var(--curtain-handle-height));
+    overflow: auto;
+    overscroll-behavior: contain;
+    padding: 10px 15px max(15px, env(safe-area-inset-bottom));
+}
+
+.cart:has(.cart__checkout) {
+    padding-bottom: 0;
 }
 
 .cart__title {
-    margin: 10px 0;
+    margin: 10px 76px;
+    overflow-wrap: anywhere;
     font: 600 20px / 22px "Montserrat", sans-serif;
     text-align: center;
 }
 
-.cart__close {
+.cart__controls {
     position: absolute;
-    top: 15px;
+    top: 10px;
     right: 15px;
-    background: none;
-    border: none;
-    font-size: 30px;
-    width: 30px;
-    height: 30px;
+    z-index: 1;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    background: #ddd;
+    gap: 6px;
+}
+
+.cart__iconButton {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border: 0;
     border-radius: 50%;
-    backdrop-filter: blur(10px);
+    background: #ececec;
+    color: #484848;
+    font: 26px/1 "Montserrat", sans-serif;
+    cursor: pointer;
+}
+
+.cart__iconButton:disabled {
+    opacity: .5;
+    cursor: default;
+}
+
+.cart__iconButton svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.cart__nameField {
+    flex-shrink: 0;
+    position: relative;
+    display: block;
+    margin: 10px 0;
+    border-radius: 16px;
+    background: #f5f5f5;
+    color: #626262;
+    cursor: text;
+}
+
+.cart__nameField:focus-within {
+    outline: 2px solid #767676;
+    outline-offset: 2px;
 }
 
 .cart__input {
-    position: relative;
-    border: 1px solid #d5d5d5;
-    text-align: left;
-    border-radius: 8px;
-    font: 700 20px / 24px "Montserrat", sans-serif;
-    height: 50px;
+    display: block;
     width: 100%;
-    padding: 2px 16px 0 16px;
-    margin: 10px 0;
+    height: 65px;
+    padding: 28px 16px 10px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #1a1a1a;
+    font: 500 16px/22px "Montserrat", sans-serif;
+}
+
+.cart__nameLabel {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    font: 500 16px/20px "Montserrat", sans-serif;
+    transform: translateY(-50%);
+    transform-origin: left center;
+    transition: transform 160ms ease;
+    pointer-events: none;
+}
+
+.cart__input:focus + .cart__nameLabel,
+.cart__input:not(:placeholder-shown) + .cart__nameLabel {
+    transform: translateY(calc(-50% - 14px)) scale(.75);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cart__nameLabel {
+        transition: none;
+    }
 }
 
 .cart__items {
     margin: 20px 0;
-    overflow: hidden;
-    overflow-y: auto;
-    height: calc(100vh - 82px - 265px);
+    flex: 1 0 auto;
 }
 
-.cart__items::-webkit-scrollbar {
-    display: none;
-}
-
-.cart__empty {
+.cart__empty,
+.cart__success {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 100%;
+    flex: 1 0 auto;
+    padding: 38px 0 10px;
+    text-align: center;
     font: 500 18px/20px "Montserrat", sans-serif;
+}
+
+.cart__emptyIcon {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 12px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    animation: cart-arrival 460ms ease-out both;
+}
+
+@keyframes cart-arrival {
+    0% { transform: translateY(-8px) rotate(-10deg); opacity: 0; }
+    65% { transform: translateY(2px) rotate(4deg); opacity: 1; }
+    100% { transform: translateY(0) rotate(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cart__emptyIcon {
+        animation: none;
+    }
 }
 
 .cart__goToMenu {
     margin: 20px 0 0 0;
+    border: 0;
+    cursor: pointer;
     border-radius: 8px;
     padding: 10px 15px;
     background: #2DC36A;
@@ -79,45 +166,70 @@
     transform: scale(0.95);
 }
 
+.cart__summary {
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #f5f5f5;
+}
+
 .cart__total {
-    font: 500 18px / 20px "Montserrat", sans-serif;
-    background: #f2f2f2;
-    padding: 10px;
-    border-radius: 8px;
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    font: 500 18px/24px "Montserrat", sans-serif;
+}
+
+.cart__total strong {
+    font-weight: 600;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
 }
 
 .cart__donation {
-    font: 500 14px / 18px "Montserrat", sans-serif;
-    color: #1a1a1a;
-    padding: 10px 12px;
-    margin: 0 0 8px 0;
-    background: #fef3cd;
-    border-radius: 12px;
-    text-align: center;
-    text-wrap: balance;
+    border-bottom: 1px solid #fff;
+    padding: 10px 16px;
+    color: #626262;
+    font: 500 13px/18px "Montserrat", sans-serif;
+}
+
+.cart__checkout {
+    position: sticky;
+    bottom: 0;
+    flex-shrink: 0;
+    z-index: 1;
+    margin-inline: -15px;
+    padding: 12px 15px max(15px, env(safe-area-inset-bottom));
+    transition: box-shadow 150ms ease;
+    background: rgb(255 255 255 / 88%);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+}
+
+.cart__checkout--raised {
+    box-shadow: 0 -8px 20px rgb(0 0 0 / 10%);
 }
 
 .cart__submit {
+    width: 100%;
     background: #31BC6B;
-    height: 50px;
+    height: 60px;
     padding: 0 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    font: 800 19px / 19px "Montserrat", sans-serif;
+    border-radius: 16px;
+    font: 600 19px / 19px "Montserrat", sans-serif;
     color: #fff;
-    position: fixed;
-    bottom: 20px;
-    right: 15px;
-    left: 15px;
+    flex-shrink: 0;
+    border: 0;
+    cursor: pointer;
     transition: transform 200ms ease;
 }
 
-.cart__submit--disabled {
+.cart__submit:disabled {
     pointer-events: none;
     user-select: none;
     opacity: 0.5;
@@ -125,15 +237,6 @@
 
 .cart__submit:active {
     transform: scale(0.95);
-}
-
-.cart__success {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 100%;
-    font: 500 18px/20px "Montserrat", sans-serif;
 }
 
 .cart__successIco {

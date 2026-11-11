@@ -100,9 +100,9 @@ export default {
             </div>
         </div>
         <div class="dish__actions">
-            <div class="dish__action dish__action--edit" @click="onEditForm()"></div>
-            <div class="dish__action" :class="classVisible" @click="onToggleVisible()"></div>
-            <div class="dish__action dish__action--delete" @click="onDelete()"></div>
+            <button type="button" class="dish__action dish__action--edit" aria-label="Редактировать блюдо" title="Редактировать блюдо" @click="onEditForm"></button>
+            <button type="button" class="dish__action" :class="classVisible" aria-label="Переключить видимость" title="Переключить видимость" @click="onToggleVisible"></button>
+            <button type="button" class="dish__action dish__action--delete" aria-label="Удалить блюдо" title="Удалить блюдо" @click="onDelete"></button>
         </div>
     </div>
     <div v-else class="dish__add" @click="onOpenForm()">Добавить</div>

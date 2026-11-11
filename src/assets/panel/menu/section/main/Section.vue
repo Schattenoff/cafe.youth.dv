@@ -91,9 +91,9 @@ export default {
             {{ section.name }}
 
             <div class="section__actions">
-                <div class="section__action section__action--edit" @click="onEditForm()"></div>
-                <div class="section__action" :class="classVisible" @click="onToggleVisible()"></div>
-                <div class="section__action section__action--delete" @click="onDelete()"></div>
+                <button type="button" class="section__action section__action--edit" aria-label="Редактировать раздел" title="Редактировать раздел" @click="onEditForm"></button>
+                <button type="button" class="section__action" :class="classVisible" aria-label="Переключить видимость" title="Переключить видимость" @click="onToggleVisible"></button>
+                <button type="button" class="section__action section__action--delete" aria-label="Удалить раздел" title="Удалить раздел" @click="onDelete"></button>
             </div>
         </div>
         <div class="section__dishes">
