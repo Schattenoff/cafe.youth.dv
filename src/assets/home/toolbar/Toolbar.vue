@@ -20,7 +20,8 @@ export default {
             dot.hidden = false;
             dot.style.left = `${from.left + from.width / 2}px`;
             dot.style.top = `${from.top + from.height / 2}px`;
-            this.$el.append(dot);
+            // The blurred toolbar changes the positioning context for fixed descendants.
+            document.body.append(dot);
 
             const lift = Math.min(145, Math.max(24, from.top - 12));
             // Кубическая кривая поднимает кружок вертикально и ведёт его к иконке сверху.
@@ -135,12 +136,12 @@ export default {
 }
 .toolbar__dot {
     position: fixed;
-    z-index: 1;
+    z-index: 21;
     width: 15px;
     height: 15px;
     border: 2px solid white;
     border-radius: 50%;
-    background: var(--cafe-accent);
+    background: #31bc6b;
     box-shadow: 0 2px 8px #36735f55;
     pointer-events: none;
 }
