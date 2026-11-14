@@ -113,7 +113,11 @@ export default {
                         <path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 10v7m4-7v7" />
                     </svg>
                 </button>
-                <button type="button" class="cart__iconButton" aria-label="Закрыть корзину" @click="close">&times;</button>
+                <button type="button" class="cart__iconButton" aria-label="Закрыть корзину" @click="close">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6 6l12 12M18 6 6 18" />
+                    </svg>
+                </button>
             </div>
             <template v-if="dishes.length && !isSuccess">
                 <div class="cart__title">Корзина</div>

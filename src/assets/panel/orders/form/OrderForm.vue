@@ -1,4 +1,5 @@
 <script>
+import Curtain from "@/assets/home/cart/curtain/Curtain.vue";
 import {apiRequest} from "@/assets/common/apiRequest/apiRequest.js";
 
 export default {
@@ -6,7 +7,11 @@ export default {
 
     inject: ['refetchOrders'],
 
-    props: ['order'],
+    components: { Curtain },
+
+    props: { order: Object },
+
+    emits: ['close'],
 
     data() {
         return {
@@ -15,10 +20,15 @@ export default {
             items: [],       // [{ dishId, name, price, count }]
             dishes: [],      // все блюда из меню для добавления
             selectedDishId: '',
+            dishesStatus: 'loading',
         }
     },
 
     computed: {
+        title() {
+            return this.order ? 'Редактирование заказа' : 'Добавить заказ';
+        },
+
         total() {
             return this.items
                 .reduce((sum, item) => sum + item.price * item.count, 0)
@@ -33,8 +43,8 @@ export default {
     },
 
     mounted() {
-        this.name = this.order.name;
-        this.items = this.order.items.map(item => ({
+        this.name = this.order?.name ?? '';
+        this.items = (this.order?.items ?? []).map(item => ({
             dishId: item.dishId,
             name: item.dish.name,
             price: item.dish.price,
@@ -49,20 +59,19 @@ export default {
             this.$emit('close');
         },
 
-        getDishes() {
-            apiRequest('get', '/section', {}, (res) => {
-                if (res.error) {
+        async getDishes() {
+            try {
+                const sections = await apiRequest('get', '/section', {}, () => {});
+                if (!Array.isArray(sections)) {
+                    this.dishesStatus = 'error';
                     return;
                 }
 
-                // res — массив разделов, у каждого dishes[]
-                this.dishes = res.reduce((acc, section) => {
-                    if (section.dishes) {
-                        acc.push(...section.dishes);
-                    }
-                    return acc;
-                }, []);
-            });
+                this.dishes = sections.flatMap(section => section.dishes ?? []);
+                this.dishesStatus = 'ready';
+            } catch {
+                this.dishesStatus = 'error';
+            }
         },
 
         increment(item) {
@@ -95,10 +104,10 @@ export default {
             this.selectedDishId = '';
         },
 
-        onSubmit() {
+        async onSubmit() {
             if (this.isLoading) return;
 
-            if (!this.name) {
+            if (!this.name.trim()) {
                 window.alert('Введите имя');
                 return;
             }
@@ -111,35 +120,41 @@ export default {
             this.isLoading = true;
 
             const payload = {
-                name: this.name,
+                name: this.name.trim(),
                 items: this.items.map(item => ({
                     id: item.dishId,
                     count: item.count,
                 })),
             };
 
-            apiRequest('put', `/order/${this.order.id}`, payload, (res) => {
-                this.isLoading = false;
+            try {
+                const method = this.order ? 'put' : 'post';
+                const url = this.order ? `/order/${this.order.id}` : '/order';
+                const result = await apiRequest(method, url, payload, () => {});
 
-                if (res.error) {
-                    window.alert(res.message || 'Не удалось сохранить заказ');
+                if (result.error) {
+                    window.alert(result.message || 'Не удалось сохранить заказ');
                     return;
                 }
 
-                this.onClose();
+                await this.$refs.curtain?.requestClose();
                 this.refetchOrders();
-            });
+            } catch (error) {
+                window.alert(error.message || 'Не удалось сохранить заказ');
+            } finally {
+                this.isLoading = false;
+            }
         }
     }
 }
 </script>
 
 <template>
-    <div class="orderForm__overlay" @click.self="onClose()">
+    <Curtain ref="curtain" v-slot="{ close }" :label="title" @close="onClose">
         <div class="orderForm">
             <div class="orderForm__header">
-                <h3>Редактирование заказа</h3>
-                <button @click="onClose">&times;</button>
+                <h3>{{ title }}</h3>
+                <button type="button" aria-label="Закрыть" @click="close">&times;</button>
             </div>
             <div class="orderForm__body">
 
@@ -166,13 +181,17 @@ export default {
                 </div>
 
                 <div class="orderForm__field orderForm__add">
-                    <select class="orderForm__select" v-model="selectedDishId">
-                        <option value="">Выберите блюдо…</option>
+                    <select class="orderForm__select" v-model="selectedDishId"
+                            aria-label="Выберите блюдо" :disabled="dishesStatus !== 'ready'">
+                        <option value="">
+                            {{ dishesStatus === 'loading' ? 'Загрузка блюд…' :
+                                dishesStatus === 'error' ? 'Не удалось загрузить блюда' : 'Выберите блюдо…' }}
+                        </option>
                         <option v-for="dish in availableDishes" :key="dish.id" :value="dish.id">
                             {{ dish.name }} — {{ dish.price.toFixed(2) }} руб.
                         </option>
                     </select>
-                    <div class="orderForm__addBtn" @click="addDish()">Добавить</div>
+                    <button type="button" class="orderForm__addBtn" :disabled="!selectedDishId" @click="addDish">Добавить</button>
                 </div>
 
                 <div class="orderForm__totalRow">
@@ -181,14 +200,14 @@ export default {
                 </div>
 
                 <div class="orderForm__footer">
-                    <div class="orderForm__submit" @click="onSubmit()">
+                    <button type="button" class="orderForm__submit" :disabled="isLoading" @click="onSubmit">
                         <div v-if="isLoading" class="orderForm__spinner"></div>
-                        <span v-else>Сохранить</span>
-                    </div>
+                        <span v-else>{{ order ? 'Сохранить' : 'Создать заказ' }}</span>
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
+    </Curtain>
 </template>
 
 <style src="./order-form.css" scoped />

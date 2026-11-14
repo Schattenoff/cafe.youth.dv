@@ -1,5 +1,6 @@
 <script>
 import {apiRequest} from "@/assets/common/apiRequest/apiRequest.js";
+import OrderForm from "@/assets/panel/orders/form/OrderForm.vue";
 import OrdersItem from "@/assets/panel/orders/item/OrdersItem.vue";
 
 export default {
@@ -7,6 +8,7 @@ export default {
 
     components: {
         OrdersItem,
+        OrderForm,
     },
 
     provide() {
@@ -19,6 +21,7 @@ export default {
         return {
             isReady: false,
             orders: null,
+            isAddingOrder: false,
         }
     },
 
@@ -82,7 +85,11 @@ export default {
 
 <template>
     <div v-if="isReady" class="orders">
-        <div class="orders__title">Заказы</div>
+        <div class="orders__header">
+            <h1 class="orders__title">Заказы</h1>
+            <button type="button" class="orders__add" @click="isAddingOrder = true">Добавить</button>
+        </div>
+        <OrderForm v-if="isAddingOrder" @close="isAddingOrder = false" />
         <div v-if="totalOrders && totalOrders.length" class="orders__total">
             Общее количество:
             <div v-for="item in totalOrders">

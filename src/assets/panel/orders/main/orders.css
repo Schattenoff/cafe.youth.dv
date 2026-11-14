@@ -18,3 +18,21 @@
 .orders__totalPrice span {
     font-weight: 500;
 }
+
+.orders__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.orders__add {
+    padding: 10px 16px;
+    min-height: 44px;
+    border: 0;
+    border-radius: 8px;
+    background: #31bc6b;
+    color: #17231b;
+    font: 600 15px/20px "Montserrat", sans-serif;
+    cursor: pointer;
+}
